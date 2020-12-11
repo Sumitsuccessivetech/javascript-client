@@ -1,4 +1,4 @@
-body, html{
+body, html {
     background-image: url('../images/background.jpg');
     border: transparent solid 1px;
 }
@@ -6,7 +6,7 @@ body, html{
 .container {
     display: flex;
     flex-direction: column;
-    background-color:grey;
+    background-color: grey;
     padding: 1px;
     margin: 10%;
     box-shadow: 10px 5px 5px gray;
@@ -18,7 +18,7 @@ body, html{
     margin: 1px;
     display: flex;
     line-height: 43px;
-    background-color:white;
+    background-color: white;
     justify-content: space-between;
 }
 
@@ -46,11 +46,11 @@ ul.breadcrumb li+li:before {
 
 .checkout1 {
     display: inline;
-    flex:5;
+    flex: 5;
 }
 
 .breadcrumb {
-    display:flex;
+    display: flex;
 }
 
 .paymentblock {
@@ -58,15 +58,15 @@ ul.breadcrumb li+li:before {
     flex: 6;
     width: 20%;
     flex-direction: column;
-    background-color:white;
+    background-color: white;
 }
 
 .cartblock {
     display: flex;
     flex: 6;
     width: 50%;
-    background-color: #EFF1F0;flex: 4;
-    
+    background-color: #EFF1F0;
+    flex: 4;
 }
 
 .icon {
@@ -82,17 +82,17 @@ ul.breadcrumb li+li:before {
 
 .co_image {
     flex: 1;
-    flex-direction: row ;
+    flex-direction: row;
     padding: 1%;
     color: black;
     font-size: small;
 }
+
 .co_img {
     width: 100%;
     padding: 0%;
     margin: auto;
 }
-
 
 .co_image:hover {
     border-radius: 1px;
@@ -130,7 +130,6 @@ div.amt {
     display: flex;
     flex-direction: row;
     flex: 2;
-    
 }
 
 .item_image {
@@ -161,32 +160,28 @@ div.amt {
     color: grey;
 }
 
-#name,
-#acc {
+#name, #acc {
     margin-left: 20%;
     width: 61%;
     padding: 3%;
-   
 }
 
 #exp {
     margin-left: 20%;
     width: 29%;
     padding: 3%;
-    
 }
 
 #cvv {
-    
     width: 29%;
     padding: 3%;
     margin-left: 2%;
 }
 
 .button {
-    color:white;
+    color: white;
     width: 61%;
-    background-color: #08F763 ;
+    background-color: #08F763;
     margin-left: 20%;
     padding: 3%;
 }
@@ -195,7 +190,7 @@ summary.buy {
     margin-left: 1%;
     flex: 1;
     text-align: left;
-    font-size: 14px;   
+    font-size: 14px;
 }
 
 .second {
