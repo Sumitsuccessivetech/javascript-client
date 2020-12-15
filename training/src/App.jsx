@@ -1,9 +1,8 @@
 import React from 'react';
-import { InputDemo } from './pages/InputDemo';
+import { ChildrenDemo } from './pages/ChildrenDemo';
 
-function App() {
-    return (
-        <InputDemo />
-    );
-}
+const App = () => (
+  <ChildrenDemo />
+);
+
 export default App;
