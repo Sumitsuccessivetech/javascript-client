@@ -1,8 +1,8 @@
 import React from 'react';
-import { ChildrenDemo } from './pages/ChildrenDemo';
+import { Trainee } from './pages/Trainee';
 
 const App = () => (
-  <ChildrenDemo />
+  <Trainee />
 );
 
 export default App;
