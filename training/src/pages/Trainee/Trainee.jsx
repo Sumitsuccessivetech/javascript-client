@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import AddDialog from './components/AddDialog/AddDialog';
-import { NavBar } from '../components';
 
 export default class Trainee extends React.Component {
     constructor(props) {
