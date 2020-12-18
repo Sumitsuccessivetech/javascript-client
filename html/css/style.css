@@ -170,24 +170,29 @@ div.amt {
     margin-left: 25%;
     width: 45%;
     padding: 1%;
+    border-radius: 7px;
 }
 
 #acc {
     margin-left: 25%;
     width: 45%;
     padding: 1%;
+    border-radius: 7px;
 }
 
 #exp {
     margin-left: 25%;
     width: 20%;
     padding: 1%;
+    border-radius: 7px;
+
 }
 
 #cvv {
     width: 20%;
     padding: 1%;
     margin-left: 4%;
+    border-radius: 7px;
 }
 
 .button {
@@ -196,6 +201,7 @@ div.amt {
     background-color: #08F763;
     margin-left: 25%;
     padding: 2%;
+    border-radius: 7px;
 }
 
 summary.buy {
