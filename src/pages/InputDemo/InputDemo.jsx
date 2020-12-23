@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextField, SelectField, RadioField } from '../../components';
-import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../config/constants';
+import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../configs/constants';
 
 class InputDemo extends React.Component {
     constructor(props) {
@@ -46,34 +46,34 @@ class InputDemo extends React.Component {
     render() {
         const { sport } = this.state;
         return (
-            <>
-                <div>
-                    <p><b>Name:</b></p>
-                    <TextField error="" onChange={this.handleNameChange} />
-                    <p><b>Select the game you play?</b></p>
-                    <SelectField
+          <>
+            <div>
+              <p><b>Name:</b></p>
+              <TextField error="" onChange={this.handleNameChange} />
+              <p><b>Select the game you play?</b></p>
+              <SelectField
                         error=""
                         onChange={this.handleSportChange}
                         options={selectOptions}
                         defaultText="Select"
-                    />
-                    <div>
-                        {
+                />
+              <div>
+                {
                             (sport === '' || sport === 'Select') ? ''
                                 : (
-                                    <>
-                                        <p><b>What you do?</b></p>
-                                        <RadioField
+                                  <>
+                                    <p><b>What you do?</b></p>
+                                    <RadioField
                                             error=""
                                             options={this.RadioOption()}
                                             onChange={this.handlePositionChange}
                                         />
-                                    </>
+                                  </>
                                 )
                         }
-                    </div>
-                </div>
-            </>
+              </div>
+            </div>
+          </>
         );
     }
 }

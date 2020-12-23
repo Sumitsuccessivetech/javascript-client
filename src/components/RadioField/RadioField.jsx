@@ -7,15 +7,15 @@ export default function RadioField(props) {
         error, onChange, options,
     } = props;
     return (
-        <>
-            { options && options.length && options.map(({ value, label }) => (
-                <Fragment key={label}>
-                    <Input type="radio" name="sport" value={value} onChange={onChange} error={error} />
-                    { label}
-                    <br />
-                </Fragment>
+      <>
+        { options && options.length && options.map(({ value, label }) => (
+          <Fragment key={label}>
+            <Input type="radio" name="sport" value={value} onChange={onChange} error={error} />
+            { label}
+            <br />
+          </Fragment>
             ))}
-        </>
+      </>
     );
 }
 RadioField.propTypes = {

@@ -9,15 +9,15 @@ function SelectField(props) {
         error, onChange, options, defaultText,
     } = props;
     return (
-        <>
-            <Select onChange={onChange} error={error}>
-                {defaultText && <option>{defaultText}</option>}
-                {
-                    options && options.length
+      <>
+        <Select onChange={onChange} error={error}>
+          {defaultText && <option>{defaultText}</option>}
+          {
+            options && options.length
                     && options.map(({ value, label }) => <option key={label} value={value}>{label}</option>)
                 }
-            </Select>
-        </>
+        </Select>
+      </>
     );
 }
 export default SelectField;
