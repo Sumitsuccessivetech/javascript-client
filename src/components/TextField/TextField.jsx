@@ -21,11 +21,11 @@ const TextField = (props) => {
 export default TextField;
 TextField.propTypes = {
   value: PropTypes.string,
-  disabled: PropTypes.string,
+  disabled: PropTypes.func,
   error: PropTypes.string,
 };
 TextField.defaultProps = {
   value: '',
-  disabled: '',
+  disabled: () => {},
   error: '',
 };
