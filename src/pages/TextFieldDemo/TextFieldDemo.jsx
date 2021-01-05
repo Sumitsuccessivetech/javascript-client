@@ -7,7 +7,7 @@ import { Div } from '../../components/TextField/style';
 const TextFieldDemo = () => (
   <Div>
     <p><b>This is a Disabled Input</b></p>
-    <TextField disabled="This is disabled" value="disabled input" />
+    <TextField disabled={true} value="disabled input" />
     <p><b> A Valid Input</b></p>
     <TextField value="accessible" />
     <p><b>An input with Errors </b></p>
