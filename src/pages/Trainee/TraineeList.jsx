@@ -20,6 +20,8 @@ class TraineeList extends React.Component {
     super(props);
     this.state = {
       open: false,
+      orderBy: '',
+      order: 'asc',
     };
   }
 
@@ -41,6 +43,18 @@ class TraineeList extends React.Component {
       console.log(data);
     });
   }
+  handleSelect = (event) => {
+    console.log(event);
+  };
+
+  handleSort = (field) => (event) => {
+    const { order } = this.state;
+    console.log(event);
+    this.setState({
+      orderBy: field,
+      order: order === 'asc' ? 'desc' : 'asc',
+    });
+  };
 
   render() {
     const { open } = this.state;
