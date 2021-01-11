@@ -1,6 +1,8 @@
 import React from 'react';
 import { TextField, SelectField, RadioField } from '../../components';
-import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../configs/constants';
+import {
+  selectOptions, options,
+} from '../../configs/constants';
 
 class InputDemo extends React.Component {
   constructor(props) {
@@ -15,16 +17,12 @@ class InputDemo extends React.Component {
 
 handleNameChange = (e) => {
   this.setState({ name: e.target.value }, () => {
-    console.log(this.state);
   });
 }
 
-handleSportChange = (e) => {
-  this.setState({ sport: e.target.value }, () => console.log(this.state));
-  if (e.target.value === 'Select') {
-    this.setState({ sport: '' });
-  }
-  return e.target.value === 'cricket' ? this.setState({ football: '' }) : this.setState({ cricket: '' });
+handleSportChange = ({ target: { value } }) => {
+  this.setState({ sport: value === 'Select' ? '' : value });
+  return value === 'cricket' ? this.setState({ football: '' }) : this.setState({ cricket: '' });
 }
 
 handlePositionChange = (e) => {
@@ -33,23 +31,17 @@ handlePositionChange = (e) => {
 }
 
     RadioOption = () => {
-      let { radioValue } = this.state;
       const { sport } = this.state;
-      if (sport === 'cricket') {
-        radioValue = radioOptionsCricket;
-      } else if (sport === 'football') {
-        radioValue = radioOptionsFootball;
-      }
-      return (radioValue);
+      return options[sport];
     };
 
     render() {
-      const { sport } = this.state;
+      const { sport, name } = this.state;
       return (
         <>
           <div>
             <p><b>Name:</b></p>
-            <TextField error="" onChange={this.handleNameChange} />
+            <TextField error="" onChange={this.handleNameChange} value={name} />
             <p><b>Select the game you play?</b></p>
             <SelectField
               error=""

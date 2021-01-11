@@ -47,4 +47,10 @@ const radioOptionsFootball = [
   },
 ];
 
-export { radioOptionsCricket, radioOptionsFootball, selectOptions };
+const options = {
+  football: radioOptionsFootball,
+  cricket: radioOptionsCricket,
+};
+export {
+  radioOptionsCricket, radioOptionsFootball, selectOptions, options,
+};

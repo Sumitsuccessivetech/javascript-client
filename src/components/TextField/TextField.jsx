@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { Error, Input } from './style';
 
 const TextField = (props) => {
-  const { value, disabled, error } = props;
+  const {
+    value, disabled, error, onChange,
+  } = props;
   return (
     <>
-      <Input type="text" defaultValue={value} disabled={disabled} />
+      <Input type="text" value={value} onChange={onChange} disabled={disabled} />
       {
         (error) ? <Error>{error}</Error> : ''
       }
@@ -18,9 +20,11 @@ TextField.propTypes = {
   value: PropTypes.string,
   disabled: PropTypes.bool,
   error: PropTypes.string,
+  onChange: PropTypes.string,
 };
 TextField.defaultProps = {
   value: '',
   disabled: false,
   error: null,
+  onChange: '',
 };
