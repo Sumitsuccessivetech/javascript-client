@@ -9,9 +9,9 @@ class Slider extends Component {
     super(props);
     this.state = {
       current: -1,
-
     };
   }
+
     componentDidMount = () => {
       const { random, duration } = this.props;
       let { current } = this.state;
@@ -32,9 +32,9 @@ class Slider extends Component {
     render() {
       const { current } = this.state;
       const {
-        altText, height, duration, banner,
+        altText, height, duration, banner, defaultBanner,
       } = this.props;
-      const image = (current === -1 || banner.length === 0) ? `${PUBLIC_IMAGE_FOLDER}${defaultbanner}` : `${PUBLIC_IMAGE_FOLDER}${banner[current]}`;
+      const image = (current === -1 || banner.length === 0) ? `${PUBLIC_IMAGE_FOLDER}${defaultBanner}` : `${PUBLIC_IMAGE_FOLDER}${banner[current]}`;
       return (
         <>
           <div align="center">
@@ -43,12 +43,12 @@ class Slider extends Component {
         </>
       );
     }
-  }
+}
 export default Slider;
 Slider.propTypes = {
   altText: PropTypes.string,
   banner: PropTypes.arrayOf(PropTypes.string),
-  defaultbanner: PropTypes.string,
+  defaultBanner: PropTypes.string,
   duration: PropTypes.number,
   height: PropTypes.number,
   random: PropTypes.bool,
@@ -56,7 +56,7 @@ Slider.propTypes = {
 Slider.defaultProps = {
   altText: 'default banner',
   banner: [],
-  defaultbanner: DEFAULT_BANNER_IMAGE,
+  defaultBanner: DEFAULT_BANNER_IMAGE,
   duration: 2000,
   height: 200,
   random: false,
