@@ -15,6 +15,7 @@ const selectOptions = [
     label: 'Football',
     value: 'football',
   },
+
 ];
 
 const radioOptionsCricket = [

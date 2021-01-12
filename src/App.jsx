@@ -1,8 +1,9 @@
 import React from 'react';
 import { InputDemo } from './pages/InputDemo';
 
-const App = () => (
-  <InputDemo />
-);
-
+function App() {
+  return (
+    <InputDemo />
+  );
+}
 export default App;
