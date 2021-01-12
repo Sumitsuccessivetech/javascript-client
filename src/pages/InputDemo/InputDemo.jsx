@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import {
   TextField, SelectField, RadioField, ButtonField,
 } from '../../components';
-import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../configs/constants';
+import { selectOptions, options } from '../../configs/constants';
 
 class InputDemo extends React.Component {
     schema = yup.object().shape({
@@ -44,16 +44,10 @@ class InputDemo extends React.Component {
         return sport === 'cricket' ? this.setState({ cricket: e.target.value }, () => console.log(this.state)) : this.setState({ football: e.target.value }, () => console.log(this.state));
       }
 
-    RadioOption = () => {
-      let { radioValue } = this.state;
-      const { sport } = this.state;
-      if (sport === 'cricket') {
-        radioValue = radioOptionsCricket;
-      } else if (sport === 'football') {
-        radioValue = radioOptionsFootball;
-      }
-      return (radioValue);
-    };
+      RadioOption = () => {
+        const { sport } = this.state;
+        return options[sport];
+      };
 
     getError = (field) => {
       const { touched } = this.state;
