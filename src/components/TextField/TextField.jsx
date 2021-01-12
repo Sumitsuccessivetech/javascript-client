@@ -8,14 +8,14 @@ const TextField = (props) => {
     } = props;
     if (error) {
         return (
-            <>
-                <Input type="text" value={value} error onChange={onChange} onBlur={onBlur} />
-                <Error>{error}</Error>
-            </>
+          <>
+            <Input type="text" value={value} error onChange={onChange} onBlur={onBlur} />
+            <Error>{error}</Error>
+          </>
         );
     }
     return (
-        <Input type="text" value={value} disabled={disabled} onChange={onChange} onBlur={onBlur} />
+      <Input type="text" value={value} disabled={disabled} onChange={onChange} onBlur={onBlur} />
     );
 };
 export default TextField;

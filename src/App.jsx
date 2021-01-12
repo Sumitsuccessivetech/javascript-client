@@ -3,7 +3,7 @@ import { InputDemo } from './pages/InputDemo';
 
 function App() {
     return (
-        <InputDemo />
+      <InputDemo />
     );
 }
 export default App;

@@ -9,17 +9,17 @@ function ButtonField(props) {
         color, disabled, style, value, onClick,
     } = props;
     return (
-        <>
-            <Button
+      <>
+        <Button
                 type={value}
                 color={color}
                 disabled={disabled}
                 onClick={onClick}
                 style={style}
             >
-                {value}
-            </Button>
-        </>
+          {value}
+        </Button>
+      </>
     );
 }
 ButtonField.propTypes = {

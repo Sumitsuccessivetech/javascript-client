@@ -7,16 +7,16 @@ function SelectField(props) {
         error, onChange, options, defaultText, onBlur,
     } = props;
     return (
-        <>
-            <Select onChange={onChange} error={error} onBlur={onBlur}>
-                {defaultText && <option>{defaultText}</option>}
-                {
+      <>
+        <Select onChange={onChange} error={error} onBlur={onBlur}>
+          {defaultText && <option>{defaultText}</option>}
+          {
                     options && options.length
                     && options.map(({ value, label }) => <option key={label} value={value}>{label}</option>)
                 }
-            </Select>
-            <Err>{error}</Err>
-        </>
+        </Select>
+        <Err>{error}</Err>
+      </>
     );
 }
 export default SelectField;

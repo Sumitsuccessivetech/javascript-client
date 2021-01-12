@@ -38,19 +38,19 @@ class Slider extends Component {
         const { defaultbanner } = this.props;
         if (current === -1 || banner.length === 0) {
             return (
-                <>
-                    <div align="center">
-                        <Img src={`${PUBLIC_IMAGE_FOLDER}${defaultbanner}`} alt={altText} height={height} duration={duration} />
-                    </div>
-                </>
+              <>
+                <div align="center">
+                  <Img src={`${PUBLIC_IMAGE_FOLDER}${defaultbanner}`} alt={altText} height={height} duration={duration} />
+                </div>
+              </>
             );
         }
         return (
-            <>
-                <div align="center">
-                    <Img src={`${PUBLIC_IMAGE_FOLDER}${banner[current]}`} alt={altText} height={height} duration={duration} />
-                </div>
-            </>
+          <>
+            <div align="center">
+              <Img src={`${PUBLIC_IMAGE_FOLDER}${banner[current]}`} alt={altText} height={height} duration={duration} />
+            </div>
+          </>
         );
     }
 }
