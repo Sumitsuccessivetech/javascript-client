@@ -34,18 +34,15 @@ class InputDemo extends React.Component {
       });
     }
 
-    handleSportChange = (e) => {
-      this.setState({ sport: e.target.value });
-      if (e.target.value === 'Select') {
-        this.setState({ sport: '' });
+      handleSportChange = ({ target: { value } }) => {
+        this.setState({ sport: value === 'Select' ? '' : value });
+        return value === 'cricket' ? this.setState({ football: '' }) : this.setState({ cricket: '' });
       }
-      return e.target.value === 'cricket' ? this.setState({ football: '' }) : this.setState({ cricket: '' });
-    }
 
-    handlePositionChange = (e) => {
-      const { sport } = this.state;
-      return sport === 'cricket' ? this.setState({ cricket: e.target.value }, () => console.log(this.state)) : this.setState({ football: e.target.value }, () => console.log(this.state));
-    }
+      handlePositionChange = (e) => {
+        const { sport } = this.state;
+        return sport === 'cricket' ? this.setState({ cricket: e.target.value }, () => console.log(this.state)) : this.setState({ football: e.target.value }, () => console.log(this.state));
+      }
 
     RadioOption = () => {
       let { radioValue } = this.state;
