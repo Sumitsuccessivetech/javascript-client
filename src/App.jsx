@@ -1,8 +1,9 @@
 import React from 'react';
-import { Trainee } from './pages/Trainee';
+import { ChildrenDemo } from './pages/ChildrenDemo';
 
-const App = () => (
-  <Trainee />
-);
-
+function App() {
+  return (
+    <ChildrenDemo />
+  );
+}
 export default App;
