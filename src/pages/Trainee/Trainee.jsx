@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import AddDialog from './components/AddDialog/AddDialog';
+import { NavBar } from '../components';
 
 export default class Trainee extends React.Component {
   constructor(props) {
@@ -10,32 +11,33 @@ export default class Trainee extends React.Component {
     };
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+    handleClickOpen = () => {
+      this.setState({ open: true });
+    };
 
-  handleClose = () => {
-    const { open } = this.state;
-    this.setState({ open: false });
-    return open;
-  };
+    handleClose = () => {
+      const { open } = this.state;
+      this.setState({ open: false });
+      return open;
+    };
 
-  handleSubmit = (data) => {
-    this.setState({
-      open: false,
-    }, () => {
-      console.log(data);
-    });
-  }
+    handleSubmit = (data) => {
+      this.setState({
+        open: false,
+      }, () => {
+        console.log(data);
+      });
+    }
 
-  render() {
-    const { open } = this.state;
-    return (
-      <>
-        <br />
-        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>ADD TRAINEE</Button>
-        <AddDialog open={open} onClose={this.handleClose} onSubmit={() => this.handleSubmit} />
-      </>
-    );
-  }
+    render() {
+      const { open } = this.state;
+      return (
+        <>
+          <NavBar />
+          <br />
+          <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>ADD TRAINEE</Button>
+          <AddDialog open={open} onClose={this.handleClose} onSubmit={() => this.handleSubmit} />
+        </>
+      );
+    }
 }
