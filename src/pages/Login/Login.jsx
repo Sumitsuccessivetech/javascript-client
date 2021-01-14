@@ -5,7 +5,7 @@ import {
     TextField, Typography, CardContent, InputAdornment, Button, Avatar, Card, CssBaseline, withStyles,
 } from '@material-ui/core';
 import { LockOutlined } from '@material-ui/icons';
-import { schema } from '../../config/constants'
+import { schema } from '../../configs/constants'
 import { Email, VisibilityOff } from '@material-ui/icons';
 
 const Design = (theme) => ({
