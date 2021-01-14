@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import {
   TextField, SelectField, RadioField, ButtonField,
 } from '../../components';
-import { selectOptions, radioOptionsCricket, radioOptionsFootball } from '../../configs/constants';
+import { selectOptions, options } from '../../configs/constants';
 
 class InputDemo extends React.Component {
     schema = yup.object().shape({
@@ -31,33 +31,23 @@ class InputDemo extends React.Component {
 
     handleNameChange = (e) => {
       this.setState({ name: e.target.value }, () => {
-        console.log(this.state);
       });
     }
 
-    handleSportChange = (e) => {
-      this.setState({ sport: e.target.value }, () => console.log(this.state));
-      if (e.target.value === 'Select') {
-        this.setState({ sport: '' });
-      }
-      return e.target.value === 'cricket' ? this.setState({ football: '' }) : this.setState({ cricket: '' });
+    handleSportChange = ({ target: { value } }) => {
+      this.setState({ sport: value === 'Select' ? '' : value });
+      return value === 'cricket' ? this.setState({ football: '' }) : this.setState({ cricket: '' });
     }
 
-    handlePositionChange = (e) => {
-      const { sport } = this.state;
-      return sport === 'cricket' ? this.setState({ cricket: e.target.value }, () => console.log(this.state)) : this.setState({ football: e.target.value }, () => console.log(this.state));
-    }
-
-    RadioOption = () => {
-      let { radioValue } = this.state;
-      const { sport } = this.state;
-      if (sport === 'cricket') {
-        radioValue = radioOptionsCricket;
-      } else if (sport === 'football') {
-        radioValue = radioOptionsFootball;
+      handlePositionChange = (e) => {
+        const { sport } = this.state;
+        return sport === 'cricket' ? this.setState({ cricket: e.target.value }, () => console.log(this.state)) : this.setState({ football: e.target.value }, () => console.log(this.state));
       }
-      return (radioValue);
-    };
+
+      RadioOption = () => {
+        const { sport } = this.state;
+        return options[sport];
+      };
 
     getError = (field) => {
       const { touched } = this.state;

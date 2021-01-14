@@ -49,6 +49,10 @@ const radioOptionsFootball = [
     value: 'defender',
   },
 ];
+const options = {
+  football: radioOptionsFootball,
+  cricket: radioOptionsCricket,
+};
 
 const schema = yup.object().shape({
   email: yup.string()
@@ -59,5 +63,5 @@ const schema = yup.object().shape({
 });
 
 export {
-  radioOptionsCricket, radioOptionsFootball, selectOptions, schema,
+  radioOptionsCricket, radioOptionsFootball, selectOptions, options, schema,
 };

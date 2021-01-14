@@ -12,8 +12,7 @@ function SelectField(props) {
         {defaultText && <option>{defaultText}</option>}
         {
           options && options.length
-                    // eslint-disable-next-line max-len
-                    && options.map(({ value, label }) => <option key={label} value={value}>{label}</option>)
+            && options.map(({ value, label }) => <option key={label} value={value}>{label}</option>)
         }
       </Select>
       <Err>{error}</Err>
