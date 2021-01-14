@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Calculation = (props) => {
+const Math = (props) => {
   const {
     first, second, operator, children,
   } = props;
@@ -38,14 +38,14 @@ const Calculation = (props) => {
     </>
   );
 };
-Calculation.propTypes = {
+Math.propTypes = {
   first: PropTypes.number.isRequired,
   second: PropTypes.number.isRequired,
   operator: PropTypes.string.isRequired,
   result: PropTypes.number.isRequired,
   children: PropTypes.func,
 };
-Calculation.defaultProps = {
+Math.defaultProps = {
   children: null,
 };
-export default Calculation;
+export default Math;
