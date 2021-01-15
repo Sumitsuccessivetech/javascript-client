@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavBar } from '../components';
 
-
+// eslint-disable-next-line no-unused-vars
 const PrivateLayout = ({ children, ...rest }) => (
   <div>
     <NavBar />
@@ -13,6 +13,7 @@ const PrivateLayout = ({ children, ...rest }) => (
 );
 PrivateLayout.propTypes = {
 
+  // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.object.isRequired,
 };
 
