@@ -2,11 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
-    TableSortLabel, TablePagination, IconButton,
-  } from '@material-ui/core';
+  Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
+  TableSortLabel, TablePagination, IconButton,
+} from '@material-ui/core';
+import { hoc } from '../HOC/index';
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
   table: {
     minWidth: 650,
   },
@@ -25,44 +26,49 @@ const useStyles = () => ({
 });
 
 function TableComponent(props) {
-    const {
-      // eslint-disable-next-line react/prop-types
-      classes, data, column, order, orderBy, onSort, onSelect,
-    } = props;
-  
-    return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              {
-                column.map((Data) => (
-                  <TableCell
-                    className={classes.header}
-                    align={Data.align}
-                    sortDirection={orderBy === Data.label ? order : false}
+  const {
+    // eslint-disable-next-line react/prop-types
+    classes, data, column, order, orderBy, onSort, onSelect, count, page, actions,
+    rowsPerPage, onChangePage, onChangeRowsPerPage,
+  } = props;
+  console.log(' data :', data);
+
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            {
+              column.map(({ align, label }) => (
+                <TableCell
+                  className={classes.column}
+                  align={align}
+                  sortDirection={orderBy === label ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === label}
+                    direction={orderBy === label ? order : 'asc'}
+                    onClick={onSort(label)}
                   >
-                    <TableSortLabel
-                      active={orderBy === Data.label}
-                      direction={orderBy === Data.label ? order : 'asc'}
-                      onClick={onSort(Data.label)}
-                    >
-                      {Data.label}
-                    </TableSortLabel>
-                  </TableCell>
-                ))
-              }
-            </TableRow>
-          </TableHead>
-          <TableBody>
-          {data.map((element) => (
+                    {label}
+                  </TableSortLabel>
+                </TableCell>
+              ))
+            }
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {(rowsPerPage > 0
+            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : data
+          ).map((element) => (
             <TableRow
               key={element.id}
               className={classes.root}
               onMouseEnter={onSelect(element)}
             >
               {column.map(({ field, align, format }) => (
-                <TableCell align={align}>
+                <TableCell onClick={(event) => onSelect(event, element.name)} align={align} component="th" scope="row" order={order} orderBy={orderBy}>
                   {format !== undefined
                     ? format(element[field])
                     : element[field]}
@@ -76,7 +82,7 @@ function TableComponent(props) {
             </TableRow>
           ))}
         </TableBody>
-        </Table>
+      </Table>
       <TablePagination
         component="div"
         rowsPerPageOptions={0}
@@ -84,13 +90,14 @@ function TableComponent(props) {
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={onChangePage}
+        onChangeRowsPerPage={onChangeRowsPerPage}
       />
     </TableContainer>
   );
 }
 TableComponent.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
   order: PropTypes.string,
   orderBy: PropTypes.string,
@@ -101,10 +108,11 @@ TableComponent.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
+  onChangeRowsPerPage: PropTypes.func.isRequired,
 };
 TableComponent.defaultProps = {
   order: 'asc',
   orderBy: '',
   onSort: () => {},
 };
-export default withStyles(useStyles)(TableComponent);
+export default withStyles(useStyles)(hoc(TableComponent));
