@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
+  Table as Tables, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
+  TableSortLabel,
 } from '@material-ui/core';
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
   table: {
     minWidth: 650,
   },
@@ -22,58 +23,58 @@ const useStyles = () => ({
   },
 });
 
-function TableComponent(props) {
-    const {
-      // eslint-disable-next-line react/prop-types
-      classes, data, column, order, orderBy, onSort, onSelect,
-    } = props;
-  
-    return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              {
-                column.map((Data) => (
-                  <TableCell
-                    className={classes.header}
-                    align={Data.align}
-                    sortDirection={orderBy === Data.label ? order : false}
+const Table = (props) => {
+  const {
+    // eslint-disable-next-line react/prop-types
+    classes, data, column, order, orderBy, onSort, onSelect,
+  } = props;
+
+  return (
+    <TableContainer component={Paper}>
+      <Tables className={classes.table}>
+        <TableHead>
+          <TableRow>
+            {
+              column.map((Data) => (
+                <TableCell
+                  className={classes.header}
+                  align={Data.align}
+                  sortDirection={orderBy === Data.label ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === Data.label}
+                    direction={orderBy === Data.label ? order : 'asc'}
+                    onClick={onSort(Data.label)}
                   >
-                    <TableSortLabel
-                      active={orderBy === Data.label}
-                      direction={orderBy === Data.label ? order : 'asc'}
-                      onClick={onSort(Data.label)}
-                    >
-                      {Data.label}
-                    </TableSortLabel>
-                  </TableCell>
-                ))
-              }
+                    {Data.label}
+                  </TableSortLabel>
+                </TableCell>
+              ))
+            }
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((element) => (
+            <TableRow
+              key={element.id}
+              className={classes.root}
+              onMouseEnter={onSelect(element)}
+            >
+              {column.map(({ field, align, format }) => (
+                <TableCell align={align}>
+                  {format !== undefined
+                    ? format(element[field])
+                    : element[field]}
+                </TableCell>
+              ))}
             </TableRow>
-          </TableHead>
-          <TableBody>
-            {data.map((element) => (
-              <TableRow
-                key={element.id}
-                className={classes.root}
-                onMouseEnter={onSelect(element)}
-              >
-                {column.map(({ field, align, format }) => (
-                  <TableCell align={align}>
-                    {format !== undefined
-                      ? format(element[field])
-                      : element[field]}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    );
-  }
-TableComponent.propTypes = {
+          ))}
+        </TableBody>
+      </Tables>
+    </TableContainer>
+  );
+};
+Table.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -81,9 +82,9 @@ TableComponent.propTypes = {
   orderBy: PropTypes.string,
   onSort: PropTypes.func,
 };
-TableComponent.defaultProps = {
+Table.defaultProps = {
   order: 'asc',
   orderBy: '',
   onSort: () => {},
 };
-export default withStyles(useStyles)(TableComponent);
+export default withStyles(useStyles)(Table);
