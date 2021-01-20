@@ -2,11 +2,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
-    TableSortLabel, TablePagination, IconButton,
-  } from '@material-ui/core';
+  Table as Tables, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
+  TableSortLabel, TablePagination, IconButton,
+} from '@material-ui/core';
 
-const useStyles = () => ({
+const useStyles = (theme) => ({
   table: {
     minWidth: 650,
   },
@@ -24,37 +24,38 @@ const useStyles = () => ({
   },
 });
 
-function TableComponent(props) {
-    const {
-      // eslint-disable-next-line react/prop-types
-      classes, data, column, order, orderBy, onSort, onSelect,
-    } = props;
-  
-    return (
-      <TableContainer component={Paper}>
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              {
-                column.map((Data) => (
-                  <TableCell
-                    className={classes.header}
-                    align={Data.align}
-                    sortDirection={orderBy === Data.label ? order : false}
+const Table = (props) => {
+  const {
+    // eslint-disable-next-line react/prop-types
+    classes, data, column, order, orderBy, onSort, onSelect, count, page, actions,
+    rowsPerPage, onChangePage,
+  } = props;
+
+  return (
+    <TableContainer component={Paper}>
+      <Tables className={classes.table}>
+        <TableHead>
+          <TableRow>
+            {
+              column.map((Data) => (
+                <TableCell
+                  className={classes.header}
+                  align={Data.align}
+                  sortDirection={orderBy === Data.label ? order : false}
+                >
+                  <TableSortLabel
+                    active={orderBy === Data.label}
+                    direction={orderBy === Data.label ? order : 'asc'}
+                    onClick={onSort(Data.label)}
                   >
-                    <TableSortLabel
-                      active={orderBy === Data.label}
-                      direction={orderBy === Data.label ? order : 'asc'}
-                      onClick={onSort(Data.label)}
-                    >
-                      {Data.label}
-                    </TableSortLabel>
-                  </TableCell>
-                ))
-              }
-            </TableRow>
-          </TableHead>
-          <TableBody>
+                    {Data.label}
+                  </TableSortLabel>
+                </TableCell>
+              ))
+            }
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {data.map((element) => (
             <TableRow
               key={element.id}
@@ -76,8 +77,10 @@ function TableComponent(props) {
             </TableRow>
           ))}
         </TableBody>
-        </Table>
-      <TablePagination
+      </Tables>
+      {
+        count ? (
+          <TablePagination
         component="div"
         rowsPerPageOptions={0}
         count={count}
@@ -85,12 +88,15 @@ function TableComponent(props) {
         page={page}
         onChangePage={onChangePage}
       />
+        ) : ''
+
+}
     </TableContainer>
   );
-}
-TableComponent.propTypes = {
+};
+Table.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.objectOf(PropTypes.object).isRequired,
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
   order: PropTypes.string,
   orderBy: PropTypes.string,
@@ -102,9 +108,9 @@ TableComponent.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
 };
-TableComponent.defaultProps = {
+Table.defaultProps = {
   order: 'asc',
   orderBy: '',
   onSort: () => {},
 };
-export default withStyles(useStyles)(TableComponent);
+export default withStyles(useStyles)(Table);
