@@ -42,16 +42,17 @@ class TraineeList extends React.Component {
     return open;
   };
 
-  handleSubmit = (data) => {
+  handleSubmit = () => {
     this.setState({
       open: false,
     }, () => {
-      console.log(data);
+      // this.setState(data);
+      // console.log(data);
     });
   }
 
-  handleSelect = (event) => {
-    console.log(event);
+  handleSelect = () => {
+    // console.log(event);
   };
 
   handleSort = (field) => () => {

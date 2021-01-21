@@ -9,12 +9,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     {...rest}
     render={(matchProps) => (
       <PrivateLayout>
-        <Component {...matchProps} />
+        <Component 
+        {...matchProps} />
       </PrivateLayout>
     )}
   />
 );
 PrivateRoute.propTypes = {
-  component: PropTypes.object.isRequired,
+  component: PropTypes.func.isRequired,
 };
 export default PrivateRoute;
