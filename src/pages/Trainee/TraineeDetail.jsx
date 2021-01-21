@@ -5,7 +5,7 @@ import moment from 'moment';
 import {
   withStyles, Card, CardContent, Typography, CardMedia, Button,
 } from '@material-ui/core';
-import trainees from './Data/trainee';
+import { trainees } from './Data/trainee';
 import NotFound from '../NoMatch';
 
 const style = (theme) => ({
@@ -41,8 +41,7 @@ const style = (theme) => ({
 });
 
 function TraineeDetails(props) {
-  const { classes } = props;
-  const { match } = props;
+  const { classes, match } = props;
   const traineeData = trainees.find(({ id }) => id === match.params.traineeId);
   const getDateFormatted = () => moment(traineeData.createdAt).format('dddd, MMMM Do YYYY, h:mm:ss a');
   if (traineeData === undefined) {

@@ -5,7 +5,7 @@ import { Button, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddDialog, EditDialog, DeleteDialog } from './components/index';
-import { TableComponent } from '../../components';
+import { Table } from '../../components';
 import { trainees } from './Data/trainee';
 
 const useStyles = (theme) => ({
@@ -47,20 +47,20 @@ class TraineeList extends React.Component {
     this.setState({
       open: false,
     }, () => {
-      console.log(data);
+      // this.setState(data);
+      // console.log(data);
     });
     const message = 'This is Success Message';
     const status = 'success';
     value(message, status);
   }
 
-  handleSelect = (event) => {
-    console.log(event);
+  handleSelect = () => {
+    // console.log(event);
   };
 
-  handleSort = (field) => (event) => {
+  handleSort = (field) => () => {
     const { order } = this.state;
-    console.log(event);
     this.setState({
       orderBy: field,
       order: order === 'asc' ? 'desc' : 'asc',
@@ -74,7 +74,7 @@ class TraineeList extends React.Component {
   };
 
   // eslint-disable-next-line no-unused-vars
-  handleRemoveDialogOpen = (element) => (event) => {
+  handleRemoveDialogOpen = (element) => () => {
     this.setState({
       RemoveOpen: true,
       deleteData: element,
@@ -167,7 +167,7 @@ class TraineeList extends React.Component {
           />
           <br />
           <br />
-          <TableComponent
+          <Table
             id="id"
             data={trainees}
             column={

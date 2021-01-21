@@ -5,4 +5,4 @@ export { RadioField } from './RadioField';
 export { SelectField } from './SelectField';
 export { ButtonField } from './Button';
 export { Math } from './Math';
-export { TableComponent } from './Table';
+export { Table } from './Table/index';
