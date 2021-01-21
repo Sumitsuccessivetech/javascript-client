@@ -43,16 +43,11 @@ class TraineeList extends React.Component {
     return open;
   };
 
-  handleSubmit = (data, value) => {
+  handleSubmit = () => {
     this.setState({
       open: false,
     }, () => {
-      // this.setState(data);
-      // console.log(data);
     });
-    const message = 'This is Success Message';
-    const status = 'success';
-    value(message, status);
   }
 
   handleSelect = () => {
@@ -165,8 +160,6 @@ class TraineeList extends React.Component {
             onClose={this.handleRemoveClose}
             remove={this.handleRemove}
           />
-          <br />
-          <br />
           <Table
             id="id"
             data={trainees}

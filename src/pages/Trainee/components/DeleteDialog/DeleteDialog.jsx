@@ -13,7 +13,6 @@ import { snackbarContext } from '../../../../contexts/index';
 
 const useStyles = () => ({
   button_color: {
-    backgroundColor: 'blue',
     color: 'white',
   },
 });
@@ -43,7 +42,7 @@ function DeleteDialog(props) {
           </Button>
           <snackbarContext.Consumer>
             {(value) => (
-              <Button onClick={() => remove(value)} color="primary" autoFocus className={classes.button_color}>
+              <Button variant="contained" onClick={() => remove(value)} color="primary" autoFocus className={classes.button_color}>
                 Delete
                 {/* onClick={remove} */}
               </Button>
