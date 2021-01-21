@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { AddDialog, EditDialog, DeleteDialog } from './components/index';
+import { AddDialog, EditDialog, DeleteDialog } from './components';
 import { Table } from '../../components';
 import trainees from './Data/trainee';
 
@@ -46,22 +46,20 @@ class TraineeList extends React.Component {
     this.setState({
       open: false,
     }, () => {
-      // this.setState(data);
-      // console.log(data);
     });
   }
 
-  handleSelect = () => {
-    // console.log(event);
-  };
+  handleSelcet = () => {
 
-  handleSort = (field) => () => {
-    const { order } = this.state;
-    this.setState({
-      orderBy: field,
-      order: order === 'asc' ? 'desc' : 'asc',
-    });
-  };
+  }
+
+ handleSort = (field) => () => {
+   const { order } = this.state;
+   this.setState({
+     orderBy: field,
+     order: order === 'asc' ? 'desc' : 'asc',
+   });
+ };
 
   handleChangePage = (event, newPage) => {
     this.setState({
@@ -142,8 +140,6 @@ class TraineeList extends React.Component {
             onClose={this.handleRemoveClose}
             remove={this.handleRemove}
           />
-          <br />
-          <br />
           <Table
             id="id"
             data={trainees}
@@ -180,7 +176,7 @@ class TraineeList extends React.Component {
             onSort={this.handleSort}
             orderBy={orderBy}
             order={order}
-            onSelect={this.handleSelect}
+            onSelect={this.handleSelcet}
             count={100}
             page={page}
             onChangePage={this.handleChangePage}
