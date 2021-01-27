@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import { Email, VisibilityOff, LockOutlined } from '@material-ui/icons';
-import { schema } from '../../config/constants';
+import { schema } from '../../configs/constants';
 import callApi from '../../libs/utils/api';
 import { snackbarContext } from '../../contexts/index';
 
