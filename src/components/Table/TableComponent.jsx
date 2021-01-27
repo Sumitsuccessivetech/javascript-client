@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Table, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
+  Table as Tables, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
   TableSortLabel, TablePagination, IconButton,
 } from '@material-ui/core';
 import { hoc } from '../HOC/index';
@@ -25,32 +25,31 @@ const useStyles = (theme) => ({
   },
 });
 
-function TableComponent(props) {
+const Table = (props) => {
   const {
     // eslint-disable-next-line react/prop-types
     classes, data, column, order, orderBy, onSort, onSelect, count, page, actions,
-    rowsPerPage, onChangePage, onChangeRowsPerPage,
+    rowsPerPage, onChangePage,
   } = props;
-  console.log(' data :', data);
 
   return (
     <TableContainer component={Paper}>
-      <Table className={classes.table}>
+      <Tables className={classes.table}>
         <TableHead>
           <TableRow>
             {
-              column.map(({ align, label }) => (
+              column.map((Data) => (
                 <TableCell
-                  className={classes.column}
-                  align={align}
-                  sortDirection={orderBy === label ? order : false}
+                  className={classes.header}
+                  align={Data.align}
+                  sortDirection={orderBy === Data.label ? order : false}
                 >
                   <TableSortLabel
-                    active={orderBy === label}
-                    direction={orderBy === label ? order : 'asc'}
-                    onClick={onSort(label)}
+                    active={orderBy === Data.label}
+                    direction={orderBy === Data.label ? order : 'asc'}
+                    onClick={onSort(Data.label)}
                   >
-                    {label}
+                    {Data.label}
                   </TableSortLabel>
                 </TableCell>
               ))
@@ -82,8 +81,10 @@ function TableComponent(props) {
             </TableRow>
           ))}
         </TableBody>
-      </Table>
-      <TablePagination
+      </Tables>
+      {
+        count ? (
+          <TablePagination
         component="div"
         rowsPerPageOptions={0}
         count={count}
@@ -92,10 +93,13 @@ function TableComponent(props) {
         onChangePage={onChangePage}
         onChangeRowsPerPage={onChangeRowsPerPage}
       />
+        ) : ''
+
+}
     </TableContainer>
   );
-}
-TableComponent.propTypes = {
+};
+Table.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   data: PropTypes.objectOf(PropTypes.object).isRequired,
   column: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -110,9 +114,9 @@ TableComponent.propTypes = {
   onSelect: PropTypes.func.isRequired,
   onChangeRowsPerPage: PropTypes.func.isRequired,
 };
-TableComponent.defaultProps = {
+Table.defaultProps = {
   order: 'asc',
   orderBy: '',
   onSort: () => {},
 };
-export default withStyles(useStyles)(hoc(TableComponent));
+export default withStyles(useStyles)(Table);

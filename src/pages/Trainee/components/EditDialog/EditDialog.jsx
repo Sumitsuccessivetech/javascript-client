@@ -18,8 +18,7 @@ import { snackbarContext } from '../../../../contexts/index';
 
 const useStyles = () => ({
   button_color: {
-    backgroundColor: 'blue',
-    color: 'black',
+    color: 'white',
   },
   button_error: {
     backgroundColor: '#bbb9b9',
@@ -168,13 +167,14 @@ class EditDialog extends React.Component {
             <snackbarContext.Consumer>
               {(value) => (
                 <Button
+                  variant="contained" color='primary' autoHideDuration= {60}
                   onClick={() => handleEdit(name, email, value)}
                   className={
                     (name === data.name && email === data.email) || this.hasErrors()
                       ? classes.button_error
                       : classes.button_color
                   }
-                  color="primary"
+
                   disabled={
                     !!((name === data.name && email === data.email) || this.hasErrors())
                   }

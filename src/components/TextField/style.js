@@ -14,6 +14,7 @@ width: 98.2%;
 padding: 0.8%;
 border: 1px solid gray;
 border-radius: 5px;
+margin-left: 2px;
 ${(props) => props.error
         && css`
 border: 1px solid red;

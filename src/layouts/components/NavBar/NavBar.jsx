@@ -4,7 +4,7 @@ import {
   AppBar, Toolbar, Typography, CssBaseline, Button,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import localStorage from 'local-storage';
+import { localStorage } from 'local-storage';
 
 const useStyles = makeStyles((theme) => ({
   root: {

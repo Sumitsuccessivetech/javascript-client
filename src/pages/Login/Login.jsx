@@ -11,17 +11,17 @@ import callApi from '../../libs/utils/api';
 import { snackbarContext } from '../../contexts/index';
 
 const Design = (theme) => ({
-  icon: {
-    background: 'red',
-    marginLeft: theme.spacing(22),
-    marginTop: theme.spacing(3),
-  },
-  main: {
-    width: 400,
-    marginTop: theme.spacing(25),
-    marginLeft: theme.spacing(50),
-  },
-});
+    icon: {
+        background: 'red',
+        marginLeft: theme.spacing(22),
+        marginTop: theme.spacing(3),
+    },
+    main: {
+        width: 400,
+        marginTop: theme.spacing(25),
+        marginLeft: theme.spacing(55),
+    },
+})
 
 class Login extends React.Component {
   constructor(props) {
