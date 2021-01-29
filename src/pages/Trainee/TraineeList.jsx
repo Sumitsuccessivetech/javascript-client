@@ -177,7 +177,7 @@ class TraineeList extends React.Component {
             orderBy={orderBy}
             order={order}
             onSelect={this.handleSelcet}
-            count={100}
+            count={trainees.length}
             page={page}
             onChangePage={this.handleChangePage}
             rowsPerPage={rowsPerPage}
