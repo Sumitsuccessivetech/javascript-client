@@ -56,21 +56,25 @@ const Table = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((element) => (
+        {(rowsPerPage > 0
+            ? data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : data
+          )
+          .map((data) => (
             <TableRow
-              key={element.id}
+              key={data.id}
               className={classes.root}
-              onMouseEnter={onSelect(element)}
+              onMouseEnter={onSelect(data)}
             >
               {column.map(({ field, align, format }) => (
                 <TableCell align={align}>
                   {format !== undefined
-                    ? format(element[field])
-                    : element[field]}
+                    ? format(data[field])
+                    : data[field]}
                 </TableCell>
               ))}
               {actions.map(({ icon, handler }) => (
-                <IconButton onClick={handler(element)} className={classes.action}>
+                <IconButton onClick={handler(data)} className={classes.action}>
                   {icon}
                 </IconButton>
               ))}

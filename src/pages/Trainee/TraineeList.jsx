@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { Button, withStyles } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { AddDialog, EditDialog, DeleteDialog } from './components/index';
+import { AddDialog, EditDialog, DeleteDialog } from './components';
 import { Table } from '../../components';
 import { trainees } from './Data/trainee';
 
@@ -50,17 +50,17 @@ class TraineeList extends React.Component {
     });
   }
 
-  handleSelect = () => {
-    // console.log(event);
-  };
+  handleSelcet = () => {
 
-  handleSort = (field) => () => {
-    const { order } = this.state;
-    this.setState({
-      orderBy: field,
-      order: order === 'asc' ? 'desc' : 'asc',
-    });
-  };
+  }
+
+ handleSort = (field) => () => {
+   const { order } = this.state;
+   this.setState({
+     orderBy: field,
+     order: order === 'asc' ? 'desc' : 'asc',
+   });
+ };
 
   handleChangePage = (event, newPage) => {
     this.setState({
@@ -196,8 +196,8 @@ class TraineeList extends React.Component {
             onSort={this.handleSort}
             orderBy={orderBy}
             order={order}
-            onSelect={this.handleSelect}
-            count={100}
+            onSelect={this.handleSelcet}
+            count={trainees.length}
             page={page}
             onChangePage={this.handleChangePage}
             rowsPerPage={rowsPerPage}
