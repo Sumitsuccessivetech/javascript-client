@@ -11,17 +11,17 @@ import callApi from '../../libs/utils/api';
 import { snackbarContext } from '../../contexts/index';
 
 const Design = (theme) => ({
-    icon: {
-        background: 'red',
-        marginLeft: theme.spacing(22),
-        marginTop: theme.spacing(3),
-    },
-    main: {
-        width: 400,
-        marginTop: theme.spacing(25),
-        marginLeft: theme.spacing(55),
-    },
-})
+  icon: {
+    background: 'red',
+    marginLeft: theme.spacing(22),
+    marginTop: theme.spacing(3),
+  },
+  main: {
+    width: 400,
+    marginTop: theme.spacing(25),
+    marginLeft: theme.spacing(55),
+  },
+});
 
 class Login extends React.Component {
   constructor(props) {
@@ -89,24 +89,26 @@ class Login extends React.Component {
         disabled: true,
         loader: true,
       });
-      const resp = await callApi({ email: email.trim(), password }, 'post', '/user/login/');
-      if (resp.data.data && (resp.data.status === 200)) {
-        window.localStorage.setItem('token', resp.data.data);
-        this.setState({
-          redirect: true,
-          message: 'Successfully Login',
-        }, () => {
-          const { message } = this.state;
-          value(message, 'success');
+
+      await callApi('POST', '/user/login', { email, password })
+        .then((resp) => {
+          localStorage.setItem('token', resp.data.data);
+          this.setState({
+            redirect: true,
+            message: 'Successfully Login',
+          }, () => {
+            const { message } = this.state;
+            value(message, 'success');
+          });
+        })
+        .catch(() => {
+          this.setState({
+            message: 'Email not Registered',
+          }, () => {
+            const { message } = this.state;
+            value(message, 'error');
+          });
         });
-      } else {
-        this.setState({
-          message: 'Email not Registered',
-        }, () => {
-          const { message } = this.state;
-          value(message, 'error');
-        });
-      }
     };
 
     render() {
