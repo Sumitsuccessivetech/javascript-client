@@ -88,25 +88,26 @@ class Login extends React.Component {
         disabled: true,
         loader: true,
       });
-      const resp = await callApi('post', '/user/login/', { email: email.trim(), password });
-      console.log('resp', resp);
-      if (resp.data.data && (resp.data.status === 200)) {
-        window.localStorage.setItem('token', resp.data.data);
+      
+    await callApi('POST', '/user/login', { email: email, password })
+    .then((resp) => {
+        localStorage.setItem('token', resp.data.data);
         this.setState({
-          redirect: true,
-          message: 'Successfully Login',
-        }, () => {
-          const { message } = this.state;
-          value(message, 'success');
-        });
-      } else {
+                  redirect: true,
+                  message: 'Successfully Login',
+                }, () => {
+                  const { message } = this.state;
+                  value(message, 'success');
+                });
+    })
+    .catch(() => {
         this.setState({
-          message: 'Email not Registered',
-        }, () => {
-          const { message } = this.state;
-          value(message, 'error');
-        });
-      }
+                  message: 'Email not Registered',
+                }, () => {
+                  const { message } = this.state;
+                  value(message, 'error');
+                });
+    });    
     };
 
     render() {
