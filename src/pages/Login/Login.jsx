@@ -19,7 +19,7 @@ const Design = (theme) => ({
     },
     main: {
         width: 400,
-        marginTop: theme.spacing(25),
+        marginTop: theme.spacing(15),
         marginLeft: theme.spacing(55),
     },
 })
