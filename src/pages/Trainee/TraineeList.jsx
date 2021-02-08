@@ -7,6 +7,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { AddDialog, EditDialog, DeleteDialog } from './components';
 import { Table } from '../../components';
 import { trainees } from './Data/trainee';
+import callApi from '../../libs/utils/api';
+import { IsLoadingHOC } from '../../components/HOC';
 
 const useStyles = (theme) => ({
   root: {
@@ -17,20 +19,32 @@ const useStyles = (theme) => ({
   },
 });
 
+const asend = 'asc';
+const dsend = 'desc';
 class TraineeList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      orderBy: '',
-      order: 'asc',
+      orderBy: 'createdBy',
+      order: asend,
+      sortedOrder: -1,
       EditOpen: false,
       RemoveOpen: false,
+      skip: 0,
+      limit: 10,
       editData: {},
       deleteData: {},
       page: 0,
       rowsPerPage: 10,
+      database: [],
     };
+  }
+
+  componentDidMount() {
+    const { setLoading } = this.props;
+    setLoading(true);
+    this.renderData();
   }
 
   handleClickOpen = () => {
@@ -55,16 +69,24 @@ class TraineeList extends React.Component {
   }
 
  handleSort = (field) => () => {
-   const { order } = this.state;
+   const { order, orderBy } = this.state;
+   let tabOrder = asend;
+   let sequence = -1;
+   if (orderBy === field && order === asend) {
+     tabOrder = dsend;
+     sequence = 1;
+   }
    this.setState({
      orderBy: field,
-     order: order === 'asc' ? 'desc' : 'asc',
+     order: tabOrder,
+     sortedOrder: sequence,
    });
  };
 
   handleChangePage = (event, newPage) => {
-    this.setState({
-      page: newPage,
+    this.setState({ page: newPage, skip: newPage * 20 }, () => {
+      this.renderData();
+      // console.log('Skip ', this.skip);
     });
   };
 
@@ -132,9 +154,28 @@ class TraineeList extends React.Component {
     });
   };
 
+  renderData = async () => {
+    const {
+      limit, skip, sortedBy, sortedOrder, search,
+    } = this.state;
+    const { setLoading } = this.props;
+    await callApi(`/user/get?limit=${limit}&skip=${skip}&sortedBy=${sortedBy}&sortedOrder=${sortedOrder}&search=${search}`, 'GET')
+      .then((response) => {
+        setTimeout(() => {
+          setLoading(false);
+          this.setState({ database: response.data.data[0] });
+        }, 200);
+        // console.log(response);
+      })
+      .catch(() => {
+        setLoading(false);
+        // console.log('there is an errror');
+      });
+  }
+
   render() {
     const {
-      open, order, orderBy, page, rowsPerPage, EditOpen, RemoveOpen, editData,
+      open, order, orderBy, page, rowsPerPage, EditOpen, RemoveOpen, editData, database,
     } = this.state;
     const { classes } = this.props;
     return (
@@ -162,7 +203,7 @@ class TraineeList extends React.Component {
           />
           <Table
             id="id"
-            data={trainees}
+            data={database}
             column={
               [
                 {
@@ -209,5 +250,6 @@ class TraineeList extends React.Component {
 }
 TraineeList.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  setLoading: PropTypes.func.isRequired,
 };
-export default withStyles(useStyles)(TraineeList);
+export default withStyles(useStyles)(IsLoadingHOC(TraineeList));

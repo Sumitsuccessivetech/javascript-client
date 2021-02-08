@@ -18,7 +18,7 @@ const Design = (theme) => ({
   },
   main: {
     width: 400,
-    marginTop: theme.spacing(25),
+    marginTop: theme.spacing(15),
     marginLeft: theme.spacing(55),
   },
 });
@@ -27,7 +27,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loader: false,
+      loading: false,
       disabled: true,
       redirect: false,
       email: '',
@@ -87,12 +87,11 @@ class Login extends React.Component {
       const { email, password } = this.state;
       await this.setState({
         disabled: true,
-        loader: true,
+        loading: true,
       });
-
       await callApi('POST', '/user/login', { email, password })
         .then((resp) => {
-          localStorage.setItem('token', resp.data.data);
+          localStorage.setItem('token', resp.data.token);
           this.setState({
             redirect: true,
             message: 'Successfully Login',
@@ -113,7 +112,7 @@ class Login extends React.Component {
 
     render() {
       const { classes } = this.props;
-      const { loader } = this.state;
+      const { loading } = this.state;
 
       return (
         <>
@@ -175,7 +174,7 @@ class Login extends React.Component {
                       {(value) => (
                         <Button variant="contained" color="primary" onClick={() => this.onClickHandler(value)} disabled={this.hasErrors()} fullWidth>
                           {this.renderRedirect()}
-                          <span>{loader ? <CircularProgress size={20} /> : ''}</span>
+                          <span>{loading ? <CircularProgress size={20} /> : ''}</span>
                           SIGN IN
                         </Button>
                       )}

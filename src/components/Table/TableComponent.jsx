@@ -92,7 +92,7 @@ const Table = (props) => {
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={onChangePage}
-        onChangeRowsPerPage={onChangeRowsPerPage}
+        // onChangeRowsPerPage={onChangeRowsPerPage}
       />
         ) : ''
 
@@ -113,7 +113,7 @@ Table.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
-  onChangeRowsPerPage: PropTypes.func.isRequired,
+  // onChangeRowsPerPage: PropTypes.func.isRequired,
 };
 Table.defaultProps = {
   order: 'asc',

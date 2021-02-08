@@ -1,1 +1,1 @@
-export { default as hoc } from './withLoaderAndMessage';
+export { default as IsLoadingHOC } from './withLoaderAndMessage';
