@@ -160,16 +160,16 @@ class TraineeList extends React.Component {
     } = this.state;
     const { setLoading } = this.props;
     await callApi(`/user/get?limit=${limit}&skip=${skip}&sortedBy=${sortedBy}&sortedOrder=${sortedOrder}&search=${search}`, 'GET')
-      .then((response) => {
+      .then((resp) => {
         setTimeout(() => {
           setLoading(false);
-          this.setState({ database: response.data.data[0] });
+          this.setState({ database: resp.data.data[0] });
         }, 200);
-        // console.log(response);
+        console.log(resp);
       })
       .catch(() => {
         setLoading(false);
-        // console.log('there is an errror');
+        console.log('there is an errror');
       });
   }
 

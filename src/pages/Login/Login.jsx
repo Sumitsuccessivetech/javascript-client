@@ -90,8 +90,9 @@ class Login extends React.Component {
         loading: true,
       });
       await callApi('POST', '/user/login', { email, password })
-        .then((resp) => {
-          localStorage.setItem('token', resp.data.token);
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+          console.log('response.data.data', response.data.token);
           this.setState({
             redirect: true,
             message: 'Successfully Login',
