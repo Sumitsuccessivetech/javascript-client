@@ -6,7 +6,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddDialog, EditDialog, DeleteDialog } from './components';
 import { Table } from '../../components';
-import { trainees } from './Data/trainee';
+// import { trainees } from './Data/trainee';
 import callApi from '../../libs/utils/api';
 import { IsLoadingHOC } from '../../components/HOC';
 
@@ -33,7 +33,7 @@ class TraineeList extends React.Component {
       EditOpen: false,
       RemoveOpen: false,
       skip: 0,
-      limit: 10,
+      limit: 20,
       editData: {},
       deleteData: {},
       page: 0,
@@ -58,11 +58,15 @@ class TraineeList extends React.Component {
     return open;
   };
 
-  handleSubmit = () => {
+  handleSubmit = (data, value) => {
     this.setState({
       open: false,
     }, () => {
+      console.log(data);
     });
+    const message = 'This is success Message';
+    const status = 'success';
+    value(message, status);
   }
 
   handleSelcet = () => {
@@ -86,6 +90,7 @@ class TraineeList extends React.Component {
  };
 
   handleChangePage = (event, newPage) => {
+    this.componentDidMount(newPage);
     this.setState({ page: newPage, skip: newPage * 20 }, () => {
       this.renderData();
       // console.log('Skip ', this.skip);
@@ -179,9 +184,9 @@ class TraineeList extends React.Component {
 
   render() {
     const {
-      open, order, orderBy, page, rowsPerPage, EditOpen, RemoveOpen, editData, database,
+      open, order, orderBy, page, rowsPerPage, EditOpen, RemoveOpen, editData, deleteData, database,
     } = this.state;
-    const { classes } = this.props;
+    const { classes, setLoading } = this.props;
     return (
       <>
         <div className={classes.root}>
@@ -204,8 +209,10 @@ class TraineeList extends React.Component {
             openRemove={RemoveOpen}
             onClose={this.handleRemoveClose}
             remove={this.handleRemove}
+            data={deleteData}
           />
           <Table
+            loading={setLoading}
             id="id"
             data={database}
             column={
@@ -242,7 +249,7 @@ class TraineeList extends React.Component {
             orderBy={orderBy}
             order={order}
             onSelect={this.handleSelcet}
-            count={trainees.length}
+            count={database.length}
             page={page}
             onChangePage={this.handleChangePage}
             rowsPerPage={rowsPerPage}
