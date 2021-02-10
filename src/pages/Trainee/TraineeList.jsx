@@ -28,6 +28,7 @@ class TraineeList extends React.Component {
       open: false,
       orderBy: 'createdBy',
       order: asend,
+      // eslint-disable-next-line react/no-unused-state
       sortedOrder: -1,
       EditOpen: false,
       RemoveOpen: false,
@@ -79,6 +80,7 @@ class TraineeList extends React.Component {
    this.setState({
      orderBy: field,
      order: tabOrder,
+     // eslint-disable-next-line react/no-unused-state
      sortedOrder: sequence,
    });
  };
@@ -156,20 +158,22 @@ class TraineeList extends React.Component {
 
   renderData = async () => {
     const {
-      limit, skip, sortedBy, sortedOrder, search,
+      limit, skip,
     } = this.state;
     const { setLoading } = this.props;
-    await callApi(`/user/get?limit=${limit}&skip=${skip}&sortedBy=${sortedBy}&sortedOrder=${sortedOrder}&search=${search}`, 'GET')
+    await callApi(`/trainee/?limit=${limit}&skip=${skip}
+    `,
+    'GET')
       .then((resp) => {
         setTimeout(() => {
           setLoading(false);
-          this.setState({ database: resp.data.data[0] });
+          this.setState({ database: resp.data.data });
         }, 200);
         console.log(resp);
       })
-      .catch(() => {
+      .catch((err) => {
         setLoading(false);
-        console.log('there is an errror');
+        console.log('there is an errror: ', err);
       });
   }
 

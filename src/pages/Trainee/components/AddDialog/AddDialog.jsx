@@ -24,7 +24,7 @@ const constant = {
   name: Person,
   email: Email,
   password: VisibilityOff,
-  'Confirm Password': VisibilityOff,
+  confirmPassword: VisibilityOff,
 };
 
 class AddDialog extends React.Component {
@@ -45,6 +45,7 @@ class AddDialog extends React.Component {
         confirmPassword: false,
       },
     };
+    this.baseState = this.state;
   }
 
   handleChange = (key) => ({ target: { value } }) => {
@@ -56,25 +57,13 @@ class AddDialog extends React.Component {
       loading: true,
       hasError: true,
     });
-    const response = await callApi(data, 'post', '/trainee');
-    this.setState({ loading: false });
-    if (response.statusText === 'OK') {
-      this.setState({
-        hasError: false,
-        message: 'This is a success message',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'success');
-      });
+    const resp = await callApi('/trainee', 'post', data);
+    if (resp) {
+      openSnackBar('Added successfully', 'Success');
     } else {
-      this.setState({
-        hasError: false,
-        message: 'error in submitting',
-      }, () => {
-        const { message } = this.state;
-        openSnackBar(message, 'error');
-      });
+      openSnackBar('Invalid User', 'error');
     }
+    // this.setState(this.baseState);
   }
 
   hasErrors = () => {
@@ -176,7 +165,7 @@ class AddDialog extends React.Component {
                     disabled={this.hasErrors()}
                     onClick={() => {
                       this.onClickHandler({
-                        name, email, password,
+                        name, email, password, role: 'trainee',
                       }, value);
                       this.formReset();
                     }}
@@ -196,6 +185,7 @@ class AddDialog extends React.Component {
     );
   }
 }
+
 export default withStyles(passwordStyle)(AddDialog);
 AddDialog.propTypes = {
   open: PropTypes.bool.isRequired,

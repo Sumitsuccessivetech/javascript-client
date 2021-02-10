@@ -1,7 +1,7 @@
 /* eslint-disable */
 import axios from 'axios';
 
-export default async function callApi(method, route, body) {
+export default async function callApi(route, method, body) {
     console.log('method', method)
     console.log('url is', route)
     console.log('data is', body)
