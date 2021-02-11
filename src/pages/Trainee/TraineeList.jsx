@@ -6,7 +6,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddDialog, EditDialog, DeleteDialog } from './components';
 import { Table } from '../../components';
-import { trainees } from './Data/trainee';
 import callApi from '../../libs/utils/api';
 import { IsLoadingHOC } from '../../components/HOC';
 
@@ -33,7 +32,7 @@ class TraineeList extends React.Component {
       EditOpen: false,
       RemoveOpen: false,
       skip: 0,
-      limit: 10,
+      limit: 20,
       editData: {},
       deleteData: {},
       page: 0,
@@ -61,7 +60,6 @@ class TraineeList extends React.Component {
   handleSubmit = () => {
     this.setState({
       open: false,
-    }, () => {
     });
   }
 
@@ -88,7 +86,6 @@ class TraineeList extends React.Component {
   handleChangePage = (event, newPage) => {
     this.setState({ page: newPage, skip: newPage * 20 }, () => {
       this.renderData();
-      // console.log('Skip ', this.skip);
     });
   };
 
@@ -189,7 +186,7 @@ class TraineeList extends React.Component {
             <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
               ADD TRAINEELIST
             </Button>
-            <AddDialog open={open} onClose={this.handleClose} onSubmit={() => this.handleSubmit} />
+            <AddDialog open={open} onClose={this.handleClose} handleSubmit={this.handleSubmit} />
           </div>
           &nbsp;
           &nbsp;
@@ -242,7 +239,7 @@ class TraineeList extends React.Component {
             orderBy={orderBy}
             order={order}
             onSelect={this.handleSelcet}
-            count={trainees.length}
+            count={database.length}
             page={page}
             onChangePage={this.handleChangePage}
             rowsPerPage={rowsPerPage}
