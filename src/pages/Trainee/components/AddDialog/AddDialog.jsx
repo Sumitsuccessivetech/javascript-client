@@ -35,7 +35,7 @@ class AddDialog extends React.Component {
       email: '',
       password: '',
       confirmPassword: '',
-      loading: false,
+      isLoading: false,
       hasError: false,
       message: '',
       touched: {
@@ -45,7 +45,6 @@ class AddDialog extends React.Component {
         confirmPassword: false,
       },
     };
-    this.baseState = this.state;
   }
 
   handleChange = (key) => ({ target: { value } }) => {
@@ -53,17 +52,20 @@ class AddDialog extends React.Component {
   };
 
   onClickHandler = async (data, openSnackBar) => {
+    // e.preventdefault();
     this.setState({
-      loading: true,
+      isLoading: true,
       hasError: true,
     });
     const resp = await callApi('/trainee', 'post', data);
+    this.setState({ isLoading: false });
     if (resp) {
       openSnackBar('Added successfully', 'Success');
     } else {
       openSnackBar('Invalid User', 'error');
     }
-    // this.setState(this.baseState);
+    const { handleSubmit } = this.props;
+    handleSubmit();
   }
 
   hasErrors = () => {
@@ -112,6 +114,7 @@ class AddDialog extends React.Component {
       password: '',
       confirmPassword: '',
       touched: {},
+      open: false,
     });
   }
 
@@ -122,7 +125,7 @@ class AddDialog extends React.Component {
     // eslint-disable-next-line no-shadow
     const {
     // eslint-disable-next-line no-shadow
-      name, email, password, loading,
+      name, email, password, isLoading,
     } = this.state;
     const ans = [];
     Object.keys(constant).forEach((key) => {
@@ -167,14 +170,13 @@ class AddDialog extends React.Component {
                       this.onClickHandler({
                         name, email, password, role: 'trainee',
                       }, value);
-                      this.formReset();
                     }}
                   >
-                    {loading && (
+                    {isLoading && (
                       <CircularProgress size={15} />
                     )}
-                    {loading && <span>Submitting</span>}
-                    {!loading && <span>Submit</span>}
+                    {isLoading && <span>Submitting</span>}
+                    {!isLoading && <span>Submit</span>}
                   </Button>
                 )}
               </snackbarContext.Consumer>
@@ -191,4 +193,5 @@ AddDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
