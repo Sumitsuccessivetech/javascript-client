@@ -6,7 +6,6 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { AddDialog, EditDialog, DeleteDialog } from './components';
 import { Table } from '../../components';
-// import { trainees } from './Data/trainee';
 import callApi from '../../libs/utils/api';
 import { IsLoadingHOC } from '../../components/HOC';
 
@@ -61,8 +60,6 @@ class TraineeList extends React.Component {
   handleSubmit = (data, value) => {
     this.setState({
       open: false,
-    }, () => {
-      console.log(data);
     });
     const message = 'This is success Message';
     const status = 'success';
@@ -93,7 +90,6 @@ class TraineeList extends React.Component {
     this.componentDidMount(newPage);
     this.setState({ page: newPage, skip: newPage * 20 }, () => {
       this.renderData();
-      // console.log('Skip ', this.skip);
     });
   };
 
@@ -194,7 +190,7 @@ class TraineeList extends React.Component {
             <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
               ADD TRAINEELIST
             </Button>
-            <AddDialog open={open} onClose={this.handleClose} onSubmit={() => this.handleSubmit} />
+            <AddDialog open={open} onClose={this.handleClose} handleSubmit={this.handleSubmit} />
           </div>
           &nbsp;
           &nbsp;
