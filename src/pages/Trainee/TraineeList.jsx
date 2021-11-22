@@ -57,10 +57,13 @@ class TraineeList extends React.Component {
     return open;
   };
 
-  handleSubmit = () => {
+  handleSubmit = (data, value) => {
     this.setState({
       open: false,
     });
+    const message = 'This is success Message';
+    const status = 'success';
+    value(message, status);
   }
 
   handleSelcet = () => {
@@ -84,6 +87,7 @@ class TraineeList extends React.Component {
  };
 
   handleChangePage = (event, newPage) => {
+    this.componentDidMount(newPage);
     this.setState({ page: newPage, skip: newPage * 20 }, () => {
       this.renderData();
     });
@@ -176,9 +180,9 @@ class TraineeList extends React.Component {
 
   render() {
     const {
-      open, order, orderBy, page, rowsPerPage, EditOpen, RemoveOpen, editData, database,
+      open, order, orderBy, page, rowsPerPage, EditOpen, RemoveOpen, editData, deleteData, database,
     } = this.state;
-    const { classes } = this.props;
+    const { classes, setLoading } = this.props;
     return (
       <>
         <div className={classes.root}>
@@ -201,8 +205,10 @@ class TraineeList extends React.Component {
             openRemove={RemoveOpen}
             onClose={this.handleRemoveClose}
             remove={this.handleRemove}
+            data={deleteData}
           />
           <Table
+            loading={setLoading}
             id="id"
             data={database}
             column={
