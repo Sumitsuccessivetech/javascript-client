@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -12,23 +11,23 @@ import callApi from '../../libs/utils/api';
 import { snackbarContext } from '../../contexts/index';
 
 const Design = (theme) => ({
-    icon: {
-        background: 'red',
-        marginLeft: theme.spacing(22),
-        marginTop: theme.spacing(3),
-    },
-    main: {
-        width: 400,
-        marginTop: theme.spacing(15),
-        marginLeft: theme.spacing(55),
-    },
-})
+  icon: {
+    background: 'red',
+    marginLeft: theme.spacing(22),
+    marginTop: theme.spacing(3),
+  },
+  main: {
+    width: 400,
+    marginTop: theme.spacing(15),
+    marginLeft: theme.spacing(55),
+  },
+});
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loader: false,
+      loading: false,
       disabled: true,
       redirect: false,
       email: '',
@@ -45,6 +44,7 @@ class Login extends React.Component {
     if (redirect) {
       return <Redirect to="/trainee" />;
     }
+    return '';
   };
 
   handleChange = (key) => ({ target: { value } }) => {
@@ -70,6 +70,7 @@ class Login extends React.Component {
           return err.message;
         }
       }
+      return '';
     };
 
     isTouched = (field) => {
@@ -86,33 +87,33 @@ class Login extends React.Component {
       const { email, password } = this.state;
       await this.setState({
         disabled: true,
-        loader: true,
+        loading: true,
       });
-      
-    await callApi('POST', '/user/login', { email: email, password })
-    .then((resp) => {
-        localStorage.setItem('token', resp.data.data);
-        this.setState({
-                  redirect: true,
-                  message: 'Successfully Login',
-                }, () => {
-                  const { message } = this.state;
-                  value(message, 'success');
-                });
-    })
-    .catch(() => {
-        this.setState({
-                  message: 'Email not Registered',
-                }, () => {
-                  const { message } = this.state;
-                  value(message, 'error');
-                });
-    });    
+      await callApi('POST', '/user/login', { email, password })
+        .then((response) => {
+          localStorage.setItem('token', response.data.token);
+          console.log('response.data.data', response.data.token);
+          this.setState({
+            redirect: true,
+            message: 'Successfully Login',
+          }, () => {
+            const { message } = this.state;
+            value(message, 'success');
+          });
+        })
+        .catch(() => {
+          this.setState({
+            message: 'Email not Registered',
+          }, () => {
+            const { message } = this.state;
+            value(message, 'error');
+          });
+        });
     };
 
     render() {
       const { classes } = this.props;
-      const { loader } = this.state;
+      const { loading } = this.state;
 
       return (
         <>
@@ -174,7 +175,7 @@ class Login extends React.Component {
                       {(value) => (
                         <Button variant="contained" color="primary" onClick={() => this.onClickHandler(value)} disabled={this.hasErrors()} fullWidth>
                           {this.renderRedirect()}
-                          <span>{loader ? <CircularProgress size={20} /> : ''}</span>
+                          <span>{loading ? <CircularProgress size={20} /> : ''}</span>
                           SIGN IN
                         </Button>
                       )}

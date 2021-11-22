@@ -5,6 +5,7 @@ import {
   Table as Tables, TableCell, TableContainer, TableHead, TableRow, Paper, withStyles, TableBody,
   TableSortLabel, TablePagination, IconButton,
 } from '@material-ui/core';
+import { hoc } from '../HOC/index';
 
 const useStyles = (theme) => ({
   table: {
@@ -67,7 +68,7 @@ const Table = (props) => {
               onMouseEnter={onSelect(data)}
             >
               {column.map(({ field, align, format }) => (
-                <TableCell align={align}>
+                <TableCell onClick={(event) => onSelect(event, element.name)} align={align} component="th" scope="row" order={order} orderBy={orderBy}>
                   {format !== undefined
                     ? format(data[field])
                     : data[field]}
@@ -91,6 +92,7 @@ const Table = (props) => {
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={onChangePage}
+        // onChangeRowsPerPage={onChangeRowsPerPage}
       />
         ) : ''
 
@@ -111,6 +113,7 @@ Table.propTypes = {
   page: PropTypes.number.isRequired,
   rowsPerPage: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
+  // onChangeRowsPerPage: PropTypes.func.isRequired,
 };
 Table.defaultProps = {
   order: 'asc',
