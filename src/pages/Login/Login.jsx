@@ -7,7 +7,6 @@ import {
 import { Redirect } from 'react-router-dom';
 import { Email, VisibilityOff, LockOutlined } from '@material-ui/icons';
 import { schema } from '../../configs/constants';
-import callApi from '../../libs/utils/api';
 import { snackbarContext } from '../../contexts/index';
 
 const Design = (theme) => ({
@@ -85,30 +84,30 @@ class Login extends React.Component {
 
     onClickHandler = async (value) => {
       const { email, password } = this.state;
+      const { loginUser } = this.props;
       await this.setState({
         disabled: true,
         loading: true,
       });
-      await callApi('POST', '/user/login', { email, password })
-        .then((response) => {
-          localStorage.setItem('token', response.data.token);
-          console.log('response.data.data', response.data.token);
-          this.setState({
-            redirect: true,
-            message: 'Successfully Login',
-          }, () => {
-            const { message } = this.state;
-            value(message, 'success');
-          });
-        })
-        .catch(() => {
-          this.setState({
-            message: 'Email not Registered',
-          }, () => {
-            const { message } = this.state;
-            value(message, 'error');
-          });
+      const resp = await loginUser({ variables: { email, password } });
+      //   console.log('resp is', resp);
+      if (resp.data.loginUser) {
+        localStorage.setItem('token', resp.data.loginUser);
+        this.setState({
+          redirect: true,
+          message: 'Successfully Login',
+        }, () => {
+          const { message } = this.state;
+          value(message, 'success');
         });
+      } else {
+        this.setState({
+          message: 'Email not Registered',
+        }, () => {
+          const { message } = this.state;
+          value(JSON.stringify(message), 'error');
+        });
+      }
     };
 
     render() {
@@ -191,5 +190,6 @@ class Login extends React.Component {
 }
 Login.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  loginUser: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 export default withStyles(Design)(Login);

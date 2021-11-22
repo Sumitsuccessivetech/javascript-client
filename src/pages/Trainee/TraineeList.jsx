@@ -89,6 +89,7 @@ class TraineeList extends React.Component {
     this.setState({
       orderBy: field,
       order: order === 'asc' ? 'desc' : 'asc',
+
     });
   };
 

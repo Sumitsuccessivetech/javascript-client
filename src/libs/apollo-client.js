@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-client';
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from '@apollo/client/link/context';
 
-const link = new HttpLink({ uri: 'http://localhost:9001/graphql' });
+const link = new HttpLink({ uri: 'http://localhost:9002/graphql' });
 
 const authLink = setContext((_, { headers }) => {
 // get the authentication token if it's exists
