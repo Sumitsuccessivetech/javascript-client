@@ -11,7 +11,6 @@ export default async function callApi(route, method, body) {
       authorization: localStorage.getItem('token')
   }
   console.log('main url is', mainUrl);
-//   try {
     const resp = await axios({
       method,
       url: mainUrl,
@@ -19,8 +18,4 @@ export default async function callApi(route, method, body) {
       headers,
     });
     return resp;
-//   } catch (err) {
-//     return { status: 'error', message: 'This is a error message' };
-
   }
-// }

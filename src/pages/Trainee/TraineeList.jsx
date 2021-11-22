@@ -62,8 +62,6 @@ class TraineeList extends React.Component {
   handleSubmit = (data, value) => {
     this.setState({
       open: false,
-    }, () => {
-      console.log(data);
     });
     const message = 'This is Success Message';
     const status = 'success';
@@ -80,6 +78,7 @@ class TraineeList extends React.Component {
     this.setState({
       orderBy: field,
       order: order === 'asc' ? 'desc' : 'asc',
+
     });
   };
 
